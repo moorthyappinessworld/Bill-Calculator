@@ -35,7 +35,7 @@
                 <div class="mb-3 mt-3">
                     <label class="form-label" for="website"><strong>Select the Service</strong></label><br>
                     <select class="form-select" aria-label="size 3 select example" name="service" id="service"
-                        onchange="changeText(this.value)">
+                        onchange="viewOptions(this.value)">
                         <option value="0" selected disabled>How was the service?
                         </option>
                         <option value="1">Outstanding</option>
@@ -53,7 +53,7 @@
 
             </form>
             <div class="d-grid gap-2 col-6 mx-auto">
-                <input type="submit" value="Calculate" onclick="showInput();"><br>
+                <input type="submit" value="Calculate" onclick="showOutput();"><br>
             </div>
             <p>
 
