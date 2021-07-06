@@ -7,92 +7,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
-        integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
-
+    <link rel="stylesheet" href="Bill.css">
+    <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=<MAP_TOKEN>"></script>
     <script src="operation.js">
     </script>
     <title>Bill Calculator</title>
 </head>
 
-<body class="d-flex flex-column">
-    <div class="row ">
-        <div class="col-md-6 offset-md-3 mb-5 card shadow mt-5">
-            <form class="card-body">
-                <h1 class="text-center">Bill Calculator</h1>
+<body>
+    <div class="row">
+        <div class="col-md-6 offset-md-3 mb-5 card shadow mt-5  bg-info">
+            <form class="card-body ">
+                <!-- Entering the Bill Amount-->
                 <div class="mb-3">
-                    <label class="form-label" for="amount"><strong>Bill Amount</strong></label>
-                    <input class="form-control" type="number" id="amount" name="amount" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
+                    <input class="form-control" type="number" placeholder="Enter the Bill Amount" id="amount"
+                        name="amount" required>
                 </div>
+                <!--Selecting the service-->
                 <div class="mb-3 mt-3">
-                    <label class="form-label" for="website"><strong>Select the Service</strong></label><br>
-                    <select class="form-select" aria-label="size 3 select example" name="service" id="service"
-                        onchange="viewOptions(this.value)">
+                    <select class="form-select" aria-label="size 3 select example" name="service" id="service">
                         <option value="0" selected disabled>How was the service?
                         </option>
-                        <option value="1">Outstanding</option>
-                        <option value="2">Good</option>
-                        <option value="3">Okay</option>
-                        <option value="4">Bad</option>
-                        <option value="5">Poor</option>
+                        <option value="10">Outstanding</option>
+                        <option value="20">Good</option>
+                        <option value="30">Okay</option>
+                        <option value="40">Bad</option>
+                        <option value="50">Poor</option>
                     </select>
                 </div>
-
+                <!-- Entering the How many people are sharing the Bill?-->
                 <div class="mb-3 mt-3">
-                    <label class="form-label" for="count"><strong>People Count</strong></label>
-                    <input class="form-control" type="number" id="count" name="count" required>
+                    <input class="form-control" type="number" placeholder="How many people are sharing the Bill?"
+                        id="count" name="count" required>
                 </div>
-
             </form>
             <div class="d-grid gap-2 col-6 mx-auto">
-                <input type="submit" value="Calculate" onclick="showOutput();"><br>
+                <input type="submit" class="btn-primary text-white" id="submit" value="Calculate"
+                    onclick="showBill();"><br>
             </div>
             <p>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <h3>Tip Amount is:</h3>
+            <div id="showOutput" style="display:none">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h3>Tip Amount is:</h3>
+                        </div>
+                        <div class="col">
+                            <strong>
+                                <!-- Displaying the Tip Amount.-->
+                                <div id="tip"></div>
+                            </strong>
+                        </div>
                     </div>
-                    <div class="col">
-                        <strong>
-                            <div id="tip"></div>
-                        </strong>
+                    <div class="row">
+                        <div class="col">
+                            <h3>Total Bill is:</h3>
+                        </div>
+                        <div class="col">
+                            <strong>
+                                <!-- Displaying the Total Bill amount. -->
+                                <div id="total"></div>
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h3>Share per person is:</h3>
+                        </div>
+                        <div class="col">
+                            <strong>
+                                <!-- Displaying the Share amount per person -->
+                                <div id="share"></div>
+                            </strong>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <h3>Total Bill is:</h3>
-                    </div>
-                    <div class="col">
-                        <strong>
-                            <div id="total"></div>
-                        </strong>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <h3>Share per Person is:</h3>
-                    </div>
-                    <div class="col">
-                        <strong>
-                            <div id="share"></div>
-                        </strong>
+                <!-- Displaying the Google Map with Current Location -->
+                <div class="mb-3" id="mapDiv">
+                    <div class="card body" id="displayMap">
                     </div>
                 </div>
             </div>
-            <!-- Google Map -->
-            <iframe src="https://www.google.com/maps/embed" width="750" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-
-            </p>
         </div>
     </div>
 

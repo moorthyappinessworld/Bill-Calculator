@@ -1,0 +1,22 @@
+
+body{
+    font-family:'Franklin Gothic Medium', sans-serif
+}
+#submit{
+    border-radius: 40px; 
+    font-size: 25px;
+    transition: 0.3s;
+}
+#submit:hover{
+    background-color: blue;
+}
+#displayMap{
+    width: auto;
+    height: 450px; 
+    border-radius: 40px; 
+    border: 5px solid black;
+}
+#mapDiv{
+    border-radius: 40px;
+    padding: 20px;
+}
